@@ -30,30 +30,26 @@
             min-height: 100vh;
         }
 
-        /* --- NUEVO FONDO: V DORADA GIGANTE + GIRO --- */
         .stars-container {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -1; background: #000; overflow: hidden;
             perspective: 1000px;
         }
 
-        /* Capa de fondo sutil */
         .star-layer-bg {
             position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background-image: radial-gradient(2px 2px at 20px 30px, #eee, transparent), radial-gradient(2px 2px at 150px 150px, var(--gold-mid), transparent);
             background-size: 300px 300px; opacity: 0.3;
         }
 
-        /* Contenedor para la V fija */
         .v-shape-container {
             position: absolute; width: 100%; height: 100%; top: 0; left: 0;
-            z-index: 2; /* La V por encima de las que giran */
+            z-index: 2;
         }
 
-        /* Contenedor para las estrellas que giran alrededor */
         .spinning-around-v {
             position: absolute; width: 100%; height: 100%; top: 0; left: 0;
-            animation: spinAroundCenter 180s linear infinite; /* Giro muy lento y majestuoso */
+            animation: spinAroundCenter 180s linear infinite;
         }
 
         .bright-star {
@@ -63,7 +59,6 @@
             animation: twinkle 4s ease-in-out infinite alternate;
         }
 
-        /* Estilo especial extra dorado para las estrellas de la V */
         .v-star {
             background: var(--gold-bright) !important;
             box-shadow: 0 0 20px 5px var(--gold-mid), 0 0 50px 15px var(--gold-dark) !important;
@@ -78,14 +73,15 @@
             100% { opacity: 1; transform: scale(1.3); }
         }
 
-        /* --- HEADER --- */
         header { padding: 120px 20px 80px; text-align: center; position: relative; }
         .hero-title {
             font-family: var(--font-luxury);
             font-size: clamp(3rem, 10vw, 6rem);
             background: var(--gold-gradient);
             -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));
+            /* Sombra de seguridad para PC */
+            text-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
             margin-bottom: 40px; letter-spacing: 5px;
         }
         .brand-bio {
@@ -94,7 +90,6 @@
         }
         .brand-bio strong { color: var(--gold-bright); font-family: var(--font-luxury); font-style: normal; }
 
-        /* --- SECCIÓN GALERÍA --- */
         .gallery-section { padding: 60px 0 120px; position: relative; }
         .honeycomb-gallery { display: flex; flex-direction: column; align-items: center; gap: 100px; }
         .h-row { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
@@ -127,13 +122,10 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.6);
         }
 
-        /* --- FOOTER --- */
         footer { padding: 100px 20px 80px; text-align: center; background: linear-gradient(to top, #000 0%, transparent 100%); position: relative; }
         
-        /* CAMBIO: TÍTULO DEL CONTACTO DORADO */
         .contact-title { 
             font-family: var(--font-luxury); 
-            /* Aplicamos el mismo degradado dorado que al título principal */
             background: var(--gold-gradient);
             -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
             font-size: 1.8rem; 
@@ -147,7 +139,21 @@
         .contact-item:hover { border-color: var(--gold-bright); background: rgba(181, 140, 46, 0.15); transform: translateY(-5px); }
         .copy { font-size: 0.7rem; color: #666; letter-spacing: 4px; text-transform: uppercase; }
 
-        /* --- MODAL --- */
+        /* --- CONTRASTE EXTREMO PARA MÓVIL --- */
+        @media (max-width: 768px) {
+            .h-row { gap: 40px; }
+            .card { width: 280px; }
+            
+            .hero-title, .contact-title { 
+                /* El secreto: Sombra negra sólida para separar el oro del fondo brillante */
+                text-shadow: 0 0 15px rgba(0,0,0,1), 0 0 5px rgba(0,0,0,1);
+                filter: brightness(1.4) drop-shadow(0 0 10px rgba(212, 175, 55, 0.6)); 
+                -webkit-text-stroke: 0.2px rgba(255,255,255,0.1); /* Un hilo de luz extra */
+            }
+            .hero-title { font-size: 3.2rem; }
+            .contact-title { font-size: 1.3rem; line-height: 1.4; padding: 0 10px; }
+        }
+
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.98); z-index: 5000;
@@ -167,11 +173,6 @@
         .v-thumb.active { opacity: 1; border-color: var(--gold-bright); transform: scale(1.1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
         .cta-ws { display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; padding: 25px; background: var(--gold-gradient); color: #000; font-weight: 900; text-decoration: none; margin-top: 40px; border-radius: 10px; letter-spacing: 3px; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        @media (max-width: 768px) {
-            .h-row { gap: 50px; }
-            .card { width: 300px; }
-        }
     </style>
 </head>
 <body>
@@ -198,7 +199,7 @@
     </div>
 
     <footer>
-        <h1 class="contact-title">AGENDA UNA ASESORÍA Y CITA PERSONALIZADA</h1>
+        <h1 class="contact-title">SOLICITA TU CITA Y ASESORÍA PERSONALIZADA</h1>
         <div class="contact-grid">
             <a href="https://wa.me/51957555444" class="contact-item"><i class="fab fa-whatsapp"></i> <span>+51 957 555 444</span></a>
             <a href="#" class="contact-item"><i class="fas fa-map-marker-alt"></i> <span>Celendín, Cajamarca</span></a>
@@ -220,65 +221,52 @@
     </div>
 
     <script>
-        // --- GENERADOR DE FONDO DE V + GIRO ---
         const vContainer = document.getElementById('vShapeStars');
         const spinContainer = document.getElementById('spinningStars');
 
-        // Función auxiliar para crear estrellas
         function createStar(container, x, y, sizeBase, className) {
             const star = document.createElement('div');
             star.className = className;
-            const size = Math.random() * sizeBase + 3; // Tamaño base
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            star.style.left = `${x}%`;
-            star.style.top = `${y}%`;
+            const size = Math.random() * sizeBase + 3;
+            star.style.width = `${size}px`; star.style.height = `${size}px`;
+            star.style.left = `${x}%`; star.style.top = `${y}%`;
             star.style.animationDelay = `${Math.random() * 4}s`;
             container.appendChild(star);
         }
 
-        // 1. Generar la "V" Dorada (Estática y muy brillante)
+        // V Adaptable que no tapa el footer en móvil
+        const isMobile = window.innerWidth <= 768;
+        const yEnd = isMobile ? 45 : 80; // Termina mucho más arriba en móvil
         const numVStars = 70;
         for (let i = 0; i < numVStars; i++) {
             let x, y;
-            const progress = i / (numVStars / 2); // 0 a 1 a lo largo del brazo
-
+            const progress = i / (numVStars / 2);
             if (i < numVStars / 2) {
-                 // Brazo izquierdo: De arriba-izquierda al centro-abajo
-                 x = 25 + (progress * 25); // X va de 25% a 50%
-                 y = 15 + (progress * 65); // Y va de 15% a 80%
+                 x = 25 + (progress * 25);
+                 y = 15 + (progress * (yEnd - 15));
             } else {
-                 // Brazo derecho: De arriba-derecha al centro-abajo
                  const progressRight = (i - numVStars/2) / (numVStars/2);
-                 x = 75 - (progressRight * 25); // X va de 75% a 50%
-                 y = 15 + (progressRight * 65); // Y va de 15% a 80%
+                 x = 75 - (progressRight * 25);
+                 y = 15 + (progressRight * (yEnd - 15));
             }
-            // Añadir un poco de dispersión natural
-            x += (Math.random() - 0.5) * 4;
-            y += (Math.random() - 0.5) * 4;
-            // Estas estrellas usan la clase especial 'v-star' para ser extra doradas
+            x += (Math.random() - 0.5) * 4; y += (Math.random() - 0.5) * 4;
             createStar(vContainer, x, y, 5, 'bright-star v-star');
         }
 
-        // 2. Generar estrellas giratorias alrededor
         for (let i = 0; i < 120; i++) {
-             // Distribuir aleatoriamente en toda la pantalla
-             const x = Math.random() * 100;
-             const y = Math.random() * 100;
-             createStar(spinContainer, x, y, 3, 'bright-star');
+             createStar(spinContainer, Math.random() * 100, Math.random() * 100, 3, 'bright-star');
         }
 
-
         const vestidos = [
-            { t: "BRUMA DE MENTA", desc: "Delicadeza y estructura se unen en este diseño corto de seda tono menta, destacando por su lazada arquitectónica en el escote y una caída asimétrica fluida que aporta movimiento.", img: "images/diseno1.jpg", vistas: ["images/diseno1.jpg", "images/diseno1-vista2.jpg"] },
-            { t: "SUEÑO MARFIL", desc: "La máxima expresión del romance en un majestuoso volumen de capas de tul de seda marfil, complementado con un corset joya de aplicaciones artesanales que atrapan la luz.", img: "images/diseno2.jpg", vistas: ["images/diseno2.jpg", "images/diseno2_vista_completa.jpg"] },
-            { t: "ESMERALDA REAL", desc: "Sofisticación en verde joya profundo con silueta sirena que esculpe la figura, realizada en encaje francés de alta densidad y pedrería fina bordada a mano.", img: "images/diseno3.jpg", vistas: ["images/diseno3.jpg", "images/diseno3-vista1.jpg", "images/diseno3-vista2.jpg", "images/diseno3-vista3.jpg", "images/diseno3-vista4.jpg", "images/diseno3-vista5.jpg"] },
-            { t: "VANGUARDIA PLATA", desc: "Audacia portable en esta pieza corta de arquitectura textil plata, con texturas tridimensionales y hombros definidos que desafían la gravedad con elegancia.", img: "images/diseno4.jpg", vistas: ["images/diseno4.jpg", "images/diseno4-vista1.jpg", "images/diseno4-vista2.jpg", "images/diseno4-vista3.jpg"] },
-            { t: "NOCHE ETERNA", desc: "El misterio de la medianoche en un vestido de gala negro azabache, con una lluvia de micro-cristales que recrean un firmamento sobre la piel para eventos inolvidables.", img: "images/diseno5.jpg", vistas: ["images/diseno5.jpg", "images/diseno5-vista1.jpg", "images/diseno5-vista2.jpg", "images/diseno5-vista3.jpg", "images/diseno5-vista4.jpg", "images/diseno5-vista5.jpg"] },
-            { t: "DELICADEZA ROSA", desc: "Feminidad etérea en gasa fluida tono palo de rosa, adornada con apliques florales orgánicos creados manualmente para una delicadeza suprema y romántica.", img: "images/diseno6.jpg", vistas: ["images/diseno6.jpg", "images/diseno6-vista1.jpg", "images/diseno6-vista2.jpg"] },
-            { t: "BOSQUE SAGRADO", desc: "Presencia teatral en verde bosque, donde el volumen dramático de la falda contrasta con un talle meticulosamente bordado, evocando la realeza clásica.", img: "images/diseno7.jpg", vistas: ["images/diseno7.jpg"] },
-            { t: "PERLA CLÁSICA", desc: "Elegancia atemporal en un diseño minimalista que acaricia la figura con caída natural, acentuado por hileras de perlas finas en puntos estratégicos.", img: "images/diseno8.jpg", vistas: ["images/diseno8.jpg", "images/diseno8-vista1.jpg", "images/diseno8-vista2.jpg"] },
-            { t: "REALEZA DORADA", desc: "Una obra maestra de artesanía con bordados barrocos en auténtico hilo de oro sobre una silueta imperial, creando una pieza de lujo absoluto.", img: "images/diseno9.jpg", vistas: ["images/diseno9.jpg", "images/diseno9-vista1.jpg", "images/diseno9-vista2.jpg"] }
+            { t: "BRUMA DE MENTA", desc: "Delicadeza y estructura en seda tono menta.", img: "images/diseno1.jpg", vistas: ["images/diseno1.jpg"] },
+            { t: "SUEÑO MARFIL", desc: "Majestuoso volumen de capas de tul de seda.", img: "images/diseno2.jpg", vistas: ["images/diseno2.jpg"] },
+            { t: "ESMERALDA REAL", desc: "Sofisticación en verde joya profundo.", img: "images/diseno3.jpg", vistas: ["images/diseno3.jpg"] },
+            { t: "VANGUARDIA PLATA", desc: "Arquitectura textil con texturas tridimensionales.", img: "images/diseno4.jpg", vistas: ["images/diseno4.jpg"] },
+            { t: "NOCHE ETERNA", desc: "Gala negro azabache con micro-cristales.", img: "images/diseno5.jpg", vistas: ["images/diseno5.jpg"] },
+            { t: "DELICADEZA ROSA", desc: "Feminidad etérea en gasa fluida palo de rosa.", img: "images/diseno6.jpg", vistas: ["images/diseno6.jpg"] },
+            { t: "BOSQUE SAGRADO", desc: "Volumen dramático evocando la realeza clásica.", img: "images/diseno7.jpg", vistas: ["images/diseno7.jpg"] },
+            { t: "PERLA CLÁSICA", desc: "Minimalismo acentuado por hileras de perlas.", img: "images/diseno8.jpg", vistas: ["images/diseno8.jpg"] },
+            { t: "REALEZA DORADA", desc: "Bordados barrocos en auténtico hilo de oro.", img: "images/diseno9.jpg", vistas: ["images/diseno9.jpg"] }
         ];
 
         const rows = [document.getElementById('row1'), document.getElementById('row2'), document.getElementById('row3')];
@@ -288,46 +276,32 @@
                 <div class="card" onclick="abrir(${i})">
                     <div class="frame-wrapper"><img src="${v.img}" loading="lazy"></div>
                     <div class="card-info"><span>${v.t}</span></div>
-                </div>
-            `;
+                </div>`;
         });
 
         function abrir(i) {
-            const v = vestidos[i];
-            const mainImg = document.getElementById('img-main');
-            const vCont = document.getElementById('vistas-container');
-            document.getElementById('m-tit').innerText = v.t;
-            document.getElementById('m-desc').innerText = v.desc;
+            const v = vestidos[i]; const mainImg = document.getElementById('img-main'); const vCont = document.getElementById('vistas-container');
+            document.getElementById('m-tit').innerText = v.t; document.getElementById('m-desc').innerText = v.desc;
             mainImg.src = v.img; vCont.innerHTML = "";
             v.vistas.forEach((url, idx) => {
-                const thumb = document.createElement('img'); thumb.src = url;
-                thumb.className = `v-thumb ${idx === 0 ? 'active' : ''}`;
-                thumb.onclick = () => {
-                    mainImg.src = url;
-                    document.querySelectorAll('.v-thumb').forEach(t => t.classList.remove('active'));
-                    thumb.classList.add('active');
-                };
+                const thumb = document.createElement('img'); thumb.src = url; thumb.className = `v-thumb ${idx === 0 ? 'active' : ''}`;
+                thumb.onclick = () => { mainImg.src = url; document.querySelectorAll('.v-thumb').forEach(t => t.classList.remove('active')); thumb.classList.add('active'); };
                 vCont.appendChild(thumb);
             });
-            document.getElementById('modal').classList.add('active');
-            document.body.style.overflow = 'hidden';
+            document.getElementById('modal').classList.add('active'); document.body.style.overflow = 'hidden';
         }
-
-        function cerrar() {
-            document.getElementById('modal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
+        function cerrar() { document.getElementById('modal').classList.remove('active'); document.body.style.overflow = 'auto'; }
     </script>
 
     <script>
-  // Este código elimina cualquier Service Worker activo para evitar que la página se quede "pegada" en versiones viejas
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      for(let registration of registrations) {
-        registration.unregister();
+      // SERVICE WORKER INTACTO
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for(let registration of registrations) {
+            registration.unregister();
+          }
+        });
       }
-    });
-  }
-</script>
+    </script>
 </body>
 </html>
