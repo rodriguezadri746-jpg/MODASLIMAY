@@ -5,458 +5,318 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MODAS LIMAY | Vilma Limay Vera</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <style>
-        /* --- 1. CONFIGURACIÓN BASE --- */
         :root {
-            --bg-deep: #050505;
-            --gold: #FFD700;
-            --gold-shine: linear-gradient(to right, #bf953f 0%, #fcf6ba 25%, #FFD700 50%, #fcf6ba 75%, #bf953f 100%);
-            --font-title: 'Cinzel Decorative', serif;
-            --font-body: 'Montserrat', sans-serif;
-            --font-emotive: 'Playfair Display', serif;
-            --octagon: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
+            --bg-black: #020202;
+            --gold-bright: #fffbe0;
+            --gold-mid: #d4af37;
+            --gold-dark: #aa771c;
+            --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 50%, #b38728 100%);
+            --font-main: 'Montserrat', sans-serif;
+            --font-luxury: 'Cinzel Decorative', serif;
+            --octagon-shape: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--bg-deep);
+            background-color: var(--bg-black);
             color: white;
-            font-family: var(--font-body);
+            font-family: var(--font-main);
             overflow-x: hidden;
-            display: flex; flex-direction: column; min-height: 100vh;
+            min-height: 100vh;
         }
 
-        .bg-lux {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background: radial-gradient(circle at 50% 30%, #1a1a1a 0%, #000000 90%);
-        }
-        .stars {
-            position: absolute; width: 100%; height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.3;
+        /* --- NUEVO FONDO: V DORADA GIGANTE + GIRO --- */
+        .stars-container {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1; background: #000; overflow: hidden;
+            perspective: 1000px;
         }
 
-        /* --- 2. HEADER CON ANIMACIONES --- */
-        header { 
-            padding: 70px 20px 50px; 
-            text-align: center; 
-            max-width: 800px;
-            margin: 0 auto;
+        /* Capa de fondo sutil */
+        .star-layer-bg {
+            position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background-image: radial-gradient(2px 2px at 20px 30px, #eee, transparent), radial-gradient(2px 2px at 150px 150px, var(--gold-mid), transparent);
+            background-size: 300px 300px; opacity: 0.3;
         }
 
-        h1.hero-title {
-            font-family: var(--font-title);
-            font-size: clamp(3.5rem, 12vw, 6rem);
-            font-weight: 900;
-            margin-bottom: 20px;
-            background: var(--gold-shine);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            
-            animation: 
-                shine 4s linear infinite,
-                entranceZoom 1.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards,
-                delicatePulse 4s ease-in-out 1.8s infinite alternate;
-                
-            opacity: 0; transform: scale(0.8); 
-            filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.2));
-        }
-        
-        @keyframes shine { to { background-position: 200% center; } }
-        @keyframes entranceZoom {
-            0% { opacity: 0; transform: scale(0.8); filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.2)); }
-            100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5)); }
-        }
-        @keyframes delicatePulse {
-            0% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5)); }
-            100% { transform: scale(1.03); filter: drop-shadow(0 0 35px rgba(255, 215, 0, 0.8)); }
+        /* Contenedor para la V fija */
+        .v-shape-container {
+            position: absolute; width: 100%; height: 100%; top: 0; left: 0;
+            z-index: 2; /* La V por encima de las que giran */
         }
 
+        /* Contenedor para las estrellas que giran alrededor */
+        .spinning-around-v {
+            position: absolute; width: 100%; height: 100%; top: 0; left: 0;
+            animation: spinAroundCenter 180s linear infinite; /* Giro muy lento y majestuoso */
+        }
+
+        .bright-star {
+            position: absolute; background: white; border-radius: 50%;
+            filter: blur(1px);
+            box-shadow: 0 0 15px 4px white, 0 0 30px 8px var(--gold-mid);
+            animation: twinkle 4s ease-in-out infinite alternate;
+        }
+
+        /* Estilo especial extra dorado para las estrellas de la V */
+        .v-star {
+            background: var(--gold-bright) !important;
+            box-shadow: 0 0 20px 5px var(--gold-mid), 0 0 50px 15px var(--gold-dark) !important;
+        }
+
+        @keyframes spinAroundCenter {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes twinkle {
+            0% { opacity: 0.5; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.3); }
+        }
+
+        /* --- HEADER --- */
+        header { padding: 120px 20px 80px; text-align: center; position: relative; }
+        .hero-title {
+            font-family: var(--font-luxury);
+            font-size: clamp(3rem, 10vw, 6rem);
+            background: var(--gold-gradient);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.5));
+            margin-bottom: 40px; letter-spacing: 5px;
+        }
         .brand-bio {
-            font-family: var(--font-emotive);
-            font-size: 1.1rem;
-            color: #ccc;
-            line-height: 1.8;
-            font-style: italic;
-            position: relative;
-            padding-top: 20px;
-            animation: fadeUp 1.2s ease-out 0.8s forwards;
-            opacity: 0; transform: translateY(30px);
+            font-family: 'Playfair Display', serif; font-size: 1.25rem; max-width: 900px; margin: 0 auto;
+            color: #f0f0f0; line-height: 1.8; font-style: italic;
         }
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        .brand-bio strong { color: var(--gold-bright); font-family: var(--font-luxury); font-style: normal; }
 
-        .brand-bio strong {
-            color: var(--gold); font-weight: 400; font-family: var(--font-title);
-            font-style: normal; font-size: 1.2rem; border-bottom: 1px solid #555;
-        }
-        .separator {
-            color: var(--gold); font-size: 0.8rem; margin-bottom: 15px; opacity: 0.7; display: block;
-        }
-
-        /* --- 3. GALERÍA EFECTO COLMENA --- */
-        .gallery-grid {
-            columns: 2; column-gap: 15px; 
-            padding: 15px; max-width: 1200px; margin: 0 auto; flex-grow: 1;
-        }
-        @media (min-width: 768px) { .gallery-grid { columns: 3; } }
+        /* --- SECCIÓN GALERÍA --- */
+        .gallery-section { padding: 60px 0 120px; position: relative; }
+        .honeycomb-gallery { display: flex; flex-direction: column; align-items: center; gap: 100px; }
+        .h-row { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
 
         .card {
-            break-inside: avoid; margin-bottom: 40px; position: relative; cursor: pointer;
-            opacity: 0; transform: translateY(50px) scale(0.9);
-            animation: popIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-        }
-
-        @keyframes popIn { to { opacity: 1; transform: translateY(0) scale(1); } }
-
-        /* Retrasos para efecto colmena */
-        .card:nth-child(1) { animation-delay: 2.2s; }
-        .card:nth-child(2) { animation-delay: 2.35s; }
-        .card:nth-child(3) { animation-delay: 2.5s; }
-        .card:nth-child(4) { animation-delay: 2.65s; }
-        .card:nth-child(5) { animation-delay: 2.8s; }
-        .card:nth-child(6) { animation-delay: 2.95s; }
-        .card:nth-child(7) { animation-delay: 3.1s; }
-        .card:nth-child(8) { animation-delay: 3.25s; }
-        .card:nth-child(9) { animation-delay: 3.4s; }
-
-        .card:nth-child(even) { margin-top: 50px; }
-
-        .oct-frame {
-            aspect-ratio: 3/4.5; width: 100%; position: relative;
-            filter: drop-shadow(0 10px 20px black);
-            transition: transform 0.3s ease;
-        }
-        .card:hover .oct-frame { transform: translateY(-5px); }
-
-        .oct-shape {
-            width: 100%; height: 100%; clip-path: var(--octagon);
-            background: var(--gold); padding: 3px;
-        }
-        .oct-shape img {
-            width: 100%; height: 100%; object-fit: cover;
-            clip-path: var(--octagon); background: #111;
-        }
-        
-        .card-name {
-            text-align: center; margin-top: -15px; position: relative; z-index: 2;
-        }
-        .card-name span {
-            background: #000; color: var(--gold); border: 1px solid #444;
-            padding: 5px 12px; border-radius: 15px; font-size: 0.7rem; letter-spacing: 1px;
-            box-shadow: 0 5px 10px black; font-weight: bold; font-family: var(--font-body);
-        }
-
-        /* --- 4. FOOTER (CONTACTO) --- */
-        footer {
-            margin-top: 80px;
-            padding: 60px 20px 40px;
-            background: linear-gradient(to top, #000 0%, #0a0a0a 100%);
-            border-top: 1px solid #222;
-            text-align: center;
+            width: 350px;
+            display: flex; flex-direction: column; align-items: center;
+            cursor: pointer; transition: 0.5s ease;
             position: relative;
-            opacity: 0;
-            animation: fadeInFooter 1.5s ease-out 4s forwards;
+        }
+        .card:hover { transform: scale(1.03) translateY(-10px); z-index: 10; }
+
+        .frame-wrapper {
+            width: 100%; aspect-ratio: 1/1;
+            clip-path: var(--octagon-shape);
+            background: var(--gold-gradient); padding: 5px;
+            filter: drop-shadow(0 25px 40px rgba(0,0,0,0.8));
+        }
+
+        .frame-wrapper img {
+            width: 100%; height: 100%; object-fit: cover;
+            clip-path: var(--octagon-shape); background: #0a0a0a;
+        }
+
+        .card-info { margin-top: 30px; text-align: center; width: 100%; }
+        .card-info span {
+            background: rgba(0,0,0,0.9); color: var(--gold-bright); border: 1px solid var(--gold-dark);
+            padding: 12px 25px; font-size: 0.85rem; font-weight: 700;
+            letter-spacing: 3px; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+        }
+
+        /* --- FOOTER --- */
+        footer { padding: 100px 20px 80px; text-align: center; background: linear-gradient(to top, #000 0%, transparent 100%); position: relative; }
+        
+        /* CAMBIO: TÍTULO DEL CONTACTO DORADO */
+        .contact-title { 
+            font-family: var(--font-luxury); 
+            /* Aplicamos el mismo degradado dorado que al título principal */
+            background: var(--gold-gradient);
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 1.8rem; 
+            letter-spacing: 5px; margin-bottom: 50px;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6));
+            font-weight: 900;
         }
         
-        @keyframes fadeInFooter { to { opacity: 1; } }
+        .contact-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 60px; }
+        .contact-item { text-decoration: none; color: white; display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.03); padding: 18px 35px; border: 1px solid #333; transition: 0.4s; }
+        .contact-item:hover { border-color: var(--gold-bright); background: rgba(181, 140, 46, 0.15); transform: translateY(-5px); }
+        .copy { font-size: 0.7rem; color: #666; letter-spacing: 4px; text-transform: uppercase; }
 
-        .footer-logo { font-family: var(--font-title); color: var(--gold); font-size: 1.8rem; margin-bottom: 10px; }
-        .footer-text { color: #888; font-size: 0.9rem; margin-bottom: 30px; letter-spacing: 1px; }
-        .social-icons { display: flex; justify-content: center; gap: 25px; margin-bottom: 30px; }
-        .social-btn {
-            width: 50px; height: 50px; border: 1px solid #444; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            color: #ccc; font-size: 1.2rem; text-decoration: none;
-            transition: all 0.3s ease; background: #000;
-        }
-        .social-btn:hover {
-            border-color: var(--gold); color: var(--gold);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); transform: scale(1.1);
-        }
-        .copyright { color: #444; font-size: 0.7rem; border-top: 1px solid #1a1a1a; padding-top: 20px; }
-        .location { color: #aaa; margin-bottom: 10px; font-size: 0.9rem; }
-        .location i { color: var(--gold); margin-right: 8px; }
-
-        /* --- 5. MODAL --- */
-        .modal-overlay {
+        /* --- MODAL --- */
+        .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.98); z-index: 2000;
-            display: block; opacity: 0; visibility: hidden; transition: 0.3s;
-            overflow-y: auto; -webkit-overflow-scrolling: touch;
+            background: rgba(0,0,0,0.98); z-index: 5000;
+            display: none; justify-content: center; overflow-y: auto;
+            backdrop-filter: blur(25px);
         }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal.active { display: flex; animation: fadeIn 0.4s ease; }
+        .modal-body { width: 100%; max-width: 900px; padding: 60px 30px; position: relative; }
+        .close-btn { position: absolute; top: 20px; right: 20px; color: var(--gold-bright); font-size: 3rem; cursor: pointer; }
+        .m-header { margin-bottom: 40px; text-align: center; }
+        .m-title { font-family: var(--font-luxury); color: var(--gold-bright) !important; font-size: 2.5rem; margin-bottom: 15px; text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3); }
+        .m-desc { font-family: 'Playfair Display', serif; color: #ddd; font-size: 1.3rem; line-height: 1.7; font-style: italic; }
+        .main-img-container { width: 100%; margin-bottom: 30px; border: 3px solid var(--gold-mid); border-radius: 25px; overflow: hidden; box-shadow: 0 0 30px rgba(252, 246, 186, 0.5), inset 0 0 15px rgba(212, 175, 55, 0.3); }
+        #img-main { width: 100%; display: block; }
+        .thumb-nav { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .v-thumb { width: 80px; height: 80px; object-fit: cover; border-radius: 50%; cursor: pointer; border: 2px solid #333; opacity: 0.6; transition: 0.3s; }
+        .v-thumb.active { opacity: 1; border-color: var(--gold-bright); transform: scale(1.1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
+        .cta-ws { display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; padding: 25px; background: var(--gold-gradient); color: #000; font-weight: 900; text-decoration: none; margin-top: 40px; border-radius: 10px; letter-spacing: 3px; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .modal-content {
-            width: 100%; max-width: 600px; margin: 0 auto;
-            min-height: 100vh; position: relative;
-            background: #000; padding-bottom: 80px;
-        }
-
-        .btn-close {
-            position: fixed; top: 20px; right: 20px;
-            width: 45px; height: 45px; background: rgba(0,0,0,0.6);
-            color: var(--gold); border: 2px solid var(--gold);
-            border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 3000;
-            display: flex; align-items: center; justify-content: center;
-            backdrop-filter: blur(4px); box-shadow: 0 0 15px rgba(0,0,0,0.8);
-        }
-
-        .modal-header { padding: 40px 20px 20px; text-align: center; }
-        .m-title { 
-            font-family: var(--font-title); color: var(--gold); font-size: 2rem; 
-            text-shadow: 0 0 10px rgba(255,215,0,0.3); margin-bottom: 15px;
-        }
-        .m-desc {
-            color: #ccc; font-size: 0.95rem; line-height: 1.6;
-            max-width: 90%; margin: 0 auto 20px; font-style: italic;
-            border-left: 3px solid var(--gold); padding-left: 15px; text-align: left;
-            font-family: var(--font-emotive);
-        }
-
-        .main-view-container {
-            width: 100%; position: relative; min-height: 300px; background: #111;
-        }
-        #img-full { width: 100%; height: auto; display: block; transition: opacity 0.2s ease; }
-
-        .thumbs-section {
-            padding: 20px 10px; background: #0a0a0a;
-            border-top: 1px solid #333; border-bottom: 1px solid #333;
-        }
-        .thumbs-label { color: #555; font-size: 0.7rem; text-align: center; margin-bottom: 12px; letter-spacing: 2px; }
-        .thumbs-track { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; }
-        .t-img {
-            width: 80px; height: 100px; flex-shrink: 0; object-fit: cover; 
-            border-radius: 4px; border: 1px solid #333; filter: grayscale(100%) contrast(110%) brightness(0.9); transition: all 0.3s;
-        }
-        .t-img.active {
-            filter: grayscale(0%) contrast(100%) brightness(1); border-color: var(--gold);
-            box-shadow: 0 0 15px rgba(255,215,0,0.3); transform: scale(1.05);
-        }
-
-        .action-box { padding: 40px 20px; text-align: center; }
-        .btn-ws {
-            display: block; width: 100%; padding: 18px;
-            background: linear-gradient(45deg, #d4af37, #FFD700);
-            color: #000; font-weight: 800; text-decoration: none;
-            border-radius: 50px; font-size: 1.2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        @media (max-width: 768px) {
+            .h-row { gap: 50px; }
+            .card { width: 300px; }
         }
     </style>
-    <script>
-  if ('service-worker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(reg => console.log('Service Worker registrado', reg))
-        .catch(err => console.warn('Error al registrar SW', err));
-    });
-  }
-</script>
 </head>
 <body>
 
-    <div class="bg-lux"><div class="stars"></div></div>
+    <div class="stars-container" id="starsContainer">
+        <div class="star-layer-bg"></div>
+        <div class="v-shape-container" id="vShapeStars"></div>
+        <div class="spinning-around-v" id="spinningStars"></div>
+    </div>
 
     <header>
         <h1 class="hero-title">MODAS LIMAY</h1>
         <div class="brand-bio">
-            <span class="separator">♦ ♦ ♦</span>
-            "Bienvenida a mi mundo creativo. Soy <strong>VILMA LIMAY VERA </strong> y para mí, el diseño es crear instantes eternos a través de la Alta Costura. Con mis manos y mi visión, creo piezas exclusivas que resaltan tu belleza con el lujo que mereces
-            para que en tu día especial te sientas única, segura e inolvidable"
+            "Bienvenida a mi mundo creativo. Soy <strong>VILMA LIMAY VERA</strong> y para mí, el diseño es crear instantes eternos a través de la Alta Costura. Con mis manos y mi visión, creo piezas exclusivas que resaltan tu belleza con el lujo que mereces para que en tu día especial te sientas única, segura e inolvidable."
         </div>
     </header>
 
-    <div class="gallery-grid">
-        <div class="card" onclick="abrir(1)"><div class="oct-frame"><div class="oct-shape"><img src="images/diseno1.jpg"></div></div><div class="card-name"><span>SUSPIRO MENTA</span></div></div>
-        <div class="card" onclick="abrir(2)"><div class="oct-frame"><div class="oct-shape"><img src="images/diseno2.jpg"></div></div><div class="card-name"><span>CINDERELLA</span></div></div>
-        <div class="card" onclick="abrir(3)"><div class="oct-frame"><div class="oct-shape"><img src="images/diseno3.jpg"></div></div><div class="card-name"><span>SALVIA ROYAL</span></div></div>
-        <div class="card" onclick="abrir(4)"><div class="oct-frame"><div class="oct-shape"><img src="images/diseno4.jpg"></div></div><div class="card-name"><span>PETITE GEM</span></div></div>
-        <div class="card" onclick="abrir(5)"><div class="oct-frame"><div class="oct-shape"><img src="images/diseno5.jpg"></div></div><div class="card-name"><span>STARDUST</span></div></div>
-        <div class="card" onclick="abrir(6)"><div class="oct-frame"><div class="oct-shape"><img src="images/diseno6.jpg"></div></div><div class="card-name"><span>ROSA FLORAL</span></div></div>
-        <div class="card" onclick="abrir(7)"><div class="oct-frame"><div class="oct-shape"><img src="images/diseno7.jpg"></div></div><div class="card-name"><span>JARDÍN SECRETO</span></div></div>
-        <div class="card" onclick="abrir(8)"><div class="oct-frame"><div class="oct-shape"><img src="images/diseno8.jpg"></div></div><div class="card-name"><span>ZAFIRO IMPERIAL</span></div></div>
-        <div class="card" onclick="abrir(9)"><div class="oct-frame"><div class="oct-shape"><img src="images/diseno9.jpg"></div></div><div class="card-name"><span>SUEÑO DE TUL</span></div></div>
+    <div class="gallery-section">
+        <div class="honeycomb-gallery">
+            <div class="h-row" id="row1"></div>
+            <div class="h-row" id="row2"></div>
+            <div class="h-row" id="row3"></div>
+        </div>
     </div>
 
     <footer>
-        <div class="footer-logo">VILMA LIMAY VERA</div>
-        <div class="location">
-            <i class="fas fa-map-marker-alt"></i> Celendín, Cajamarca
+        <h1 class="contact-title">AGENDA UNA ASESORÍA Y CITA PERSONALIZADA</h1>
+        <div class="contact-grid">
+            <a href="https://wa.me/51957555444" class="contact-item"><i class="fab fa-whatsapp"></i> <span>+51 957 555 444</span></a>
+            <a href="#" class="contact-item"><i class="fas fa-map-marker-alt"></i> <span>Celendín, Cajamarca</span></a>
         </div>
-        <p class="footer-text">Donde el hilo se convierte en arte.</p>
-        
-        <div class="social-icons">
-            <a href="https://wa.me/TUNUMERO" class="social-btn"><i class="fab fa-whatsapp"></i></a>
-            <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
-        </div>
-        
-        <div class="copyright">
-            &copy; 2025 MODAS LIMAY. Todos los derechos reservados.
-        </div>
+        <p class="copy">© 2025 MODAS LIMAY - Alta Costura a Medida</p>
     </footer>
 
-    <div id="modal" class="modal-overlay">
-        <div class="btn-close" onclick="cerrar()"><i class="fas fa-times"></i></div>
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="m-tit" class="m-title">TÍTULO</h2>
-                <p id="m-desc" class="m-desc">Descripción...</p>
+    <div id="modal" class="modal">
+        <div class="modal-body">
+            <div class="close-btn" onclick="cerrar()">×</div>
+            <div class="m-header">
+                <h2 id="m-tit" class="m-title"></h2>
+                <p id="m-desc" class="m-desc"></p>
             </div>
-            <div class="main-view-container">
-                <img id="img-full" src="" alt="Vista completa">
-            </div>
-            <div class="thumbs-section">
-                <div class="thumbs-label">VER MÁS DETALLES</div>
-                <div class="thumbs-track" id="carrusel"></div>
-            </div>
-            <div class="action-box">
-                <a href="https://wa.me/TUNUMERO" class="btn-ws">
-                    <i class="fab fa-whatsapp"></i> COTIZAR AHORA
-                </a>
-            </div>
+            <div class="main-img-container"><img id="img-main" src=""></div>
+            <div id="vistas-container" class="thumb-nav"></div>
+            <a href="https://wa.me/51957555444" class="cta-ws"><i class="fab fa-whatsapp"></i> SOLICITAR INFORMACIÓN</a>
         </div>
     </div>
 
     <script>
-        // BASE DE DATOS ACTUALIZADA CON TODOS LOS ARCHIVOS
-        const db = {
-            1: { 
-                t: "SUSPIRO DE MENTA", 
-                desc: "Elegancia refrescante en tono verde menta. Bordados aplicados a mano sobre tul ilusión.",
-                // Añadido diseno1-vista2.jpg
-                f: ["images/diseno1.jpg", "images/diseno1-vista2.jpg"] 
-            },
-            2: { 
-                t: "CINDERELLA ROYAL", 
-                desc: "Un clásico de cuento de hadas. Cuerpo estructurado con pedrería fina y falda voluminosa.",
-                // Añadido diseno2_vista_completa.jpg
-                f: ["images/diseno2.jpg", "images/diseno2_vista_completa.jpg"] 
-            },
-            3: { 
-                t: "ESENCIA SALVIA", 
-                desc: "Sofisticación moderna. El verde salvia se combina con encajes delicados y mangas transparentes.",
-                // Añadidas vistas 1 a 5
-                f: [
-                    "images/diseno3.jpg", 
-                    "images/diseno3-vista1.jpg", 
-                    "images/diseno3-vista2.jpg", 
-                    "images/diseno3-vista3.jpg", 
-                    "images/diseno3-vista4.jpg", 
-                    "images/diseno3-vista5.jpg"
-                ] 
-            },
-            4: { 
-                t: "PETITE COUTURE", 
-                desc: "Lujo en miniatura. Diseño gris perla con aplicaciones florales 3D.",
-                // Añadidas vistas 1 a 3
-                f: [
-                    "images/diseno4.jpg", 
-                    "images/diseno4-vista1.jpg", 
-                    "images/diseno4-vista2.jpg", 
-                    "images/diseno4-vista3.jpg"
-                ] 
-            },
-            5: { 
-                t: "STARDUST NIGHT", 
-                desc: "Diseñado para brillar. Vestido corto repleto de destellos plateados, ideal para la noche.",
-                // Añadidas vistas 1 a 5
-                f: [
-                    "images/diseno5.jpg", 
-                    "images/diseno5-vista1.jpg", 
-                    "images/diseno5-vista2.jpg", 
-                    "images/diseno5-vista3.jpg", 
-                    "images/diseno5-vista4.jpg", 
-                    "images/diseno5-vista5.jpg"
-                ] 
-            },
-            6: { 
-                t: "ROSA FLORAL", 
-                desc: "Dulzura y alta costura. Tono rosa suave con ricas texturas bordadas.",
-                // Añadidas vistas 1 y 2
-                f: [
-                    "images/diseno6.jpg", 
-                    "images/diseno6-vista1.jpg", 
-                    "images/diseno6-vista2.jpg"
-                ] 
-            },
-            7: { 
-                t: "JARDÍN SECRETO", 
-                desc: "Volumen y textura. Un verde profundo con capas de tul y encaje intrincado.",
-                f: ["images/diseno7.jpg"] 
-            },
-            8: { 
-                t: "AZUL IMPERIAL", 
-                desc: "Impacto absoluto. Azul rey vibrante con lentejuelas en toda la superficie.",
-                // Añadidas vistas 1 y 2
-                f: [
-                    "images/diseno8.jpg", 
-                    "images/diseno8-vista1.jpg", 
-                    "images/diseno8-vista2.jpg"
-                ] 
-            },
-            9: { 
-                t: "SUEÑO DE TUL", 
-                desc: "Movimiento y gracia. Transparencias estratégicas y bordados florales.",
-                // Añadidas vistas 1 y 2
-                f: [
-                    "images/diseno9.jpg", 
-                    "images/diseno9-vista1.jpg", 
-                    "images/diseno9-vista2.jpg"
-                ] 
-            }
-        };
+        // --- GENERADOR DE FONDO DE V + GIRO ---
+        const vContainer = document.getElementById('vShapeStars');
+        const spinContainer = document.getElementById('spinningStars');
 
-        const modal = document.getElementById('modal');
-        const imgFull = document.getElementById('img-full');
-        const tit = document.getElementById('m-tit');
-        const desc = document.getElementById('m-desc');
-        const carrusel = document.getElementById('carrusel');
+        // Función auxiliar para crear estrellas
+        function createStar(container, x, y, sizeBase, className) {
+            const star = document.createElement('div');
+            star.className = className;
+            const size = Math.random() * sizeBase + 3; // Tamaño base
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.left = `${x}%`;
+            star.style.top = `${y}%`;
+            star.style.animationDelay = `${Math.random() * 4}s`;
+            container.appendChild(star);
+        }
 
-        function abrir(id) {
-            const data = db[id];
-            if(!data) return;
+        // 1. Generar la "V" Dorada (Estática y muy brillante)
+        const numVStars = 70;
+        for (let i = 0; i < numVStars; i++) {
+            let x, y;
+            const progress = i / (numVStars / 2); // 0 a 1 a lo largo del brazo
 
-            tit.innerText = data.t;
-            desc.innerText = data.desc;
-            
-            imgFull.style.opacity = 0;
-            imgFull.src = data.f[0];
-            imgFull.onload = () => { imgFull.style.opacity = 1; };
-
-            carrusel.innerHTML = '';
-            if(data.f.length > 1) {
-                data.f.forEach((src, i) => {
-                    let thumb = document.createElement('img');
-                    thumb.src = src;
-                    thumb.className = i === 0 ? 't-img active' : 't-img';
-                    thumb.onclick = function() {
-                        document.querySelector('.modal-overlay').scrollTo({ top: 0, behavior: 'smooth' });
-                        imgFull.style.opacity = 0.5;
-                        setTimeout(() => { imgFull.src = src; imgFull.style.opacity = 1; }, 200);
-                        document.querySelectorAll('.t-img').forEach(t => t.classList.remove('active'));
-                        thumb.classList.add('active');
-                    }
-                    carrusel.appendChild(thumb);
-                });
+            if (i < numVStars / 2) {
+                 // Brazo izquierdo: De arriba-izquierda al centro-abajo
+                 x = 25 + (progress * 25); // X va de 25% a 50%
+                 y = 15 + (progress * 65); // Y va de 15% a 80%
             } else {
-                carrusel.innerHTML = '<p style="color:#666; width:100%; text-align:center;">Vista única</p>';
+                 // Brazo derecho: De arriba-derecha al centro-abajo
+                 const progressRight = (i - numVStars/2) / (numVStars/2);
+                 x = 75 - (progressRight * 25); // X va de 75% a 50%
+                 y = 15 + (progressRight * 65); // Y va de 15% a 80%
             }
+            // Añadir un poco de dispersión natural
+            x += (Math.random() - 0.5) * 4;
+            y += (Math.random() - 0.5) * 4;
+            // Estas estrellas usan la clase especial 'v-star' para ser extra doradas
+            createStar(vContainer, x, y, 5, 'bright-star v-star');
+        }
 
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; 
+        // 2. Generar estrellas giratorias alrededor
+        for (let i = 0; i < 120; i++) {
+             // Distribuir aleatoriamente en toda la pantalla
+             const x = Math.random() * 100;
+             const y = Math.random() * 100;
+             createStar(spinContainer, x, y, 3, 'bright-star');
+        }
+
+
+        const vestidos = [
+            { t: "BRUMA DE MENTA", desc: "Delicadeza y estructura se unen en este diseño corto de seda tono menta, destacando por su lazada arquitectónica en el escote y una caída asimétrica fluida que aporta movimiento.", img: "images/diseno1.jpg", vistas: ["images/diseno1.jpg", "images/diseno1-vista2.jpg"] },
+            { t: "SUEÑO MARFIL", desc: "La máxima expresión del romance en un majestuoso volumen de capas de tul de seda marfil, complementado con un corset joya de aplicaciones artesanales que atrapan la luz.", img: "images/diseno2.jpg", vistas: ["images/diseno2.jpg", "images/diseno2_vista_completa.jpg"] },
+            { t: "ESMERALDA REAL", desc: "Sofisticación en verde joya profundo con silueta sirena que esculpe la figura, realizada en encaje francés de alta densidad y pedrería fina bordada a mano.", img: "images/diseno3.jpg", vistas: ["images/diseno3.jpg", "images/diseno3-vista1.jpg", "images/diseno3-vista2.jpg", "images/diseno3-vista3.jpg", "images/diseno3-vista4.jpg", "images/diseno3-vista5.jpg"] },
+            { t: "VANGUARDIA PLATA", desc: "Audacia portable en esta pieza corta de arquitectura textil plata, con texturas tridimensionales y hombros definidos que desafían la gravedad con elegancia.", img: "images/diseno4.jpg", vistas: ["images/diseno4.jpg", "images/diseno4-vista1.jpg", "images/diseno4-vista2.jpg", "images/diseno4-vista3.jpg"] },
+            { t: "NOCHE ETERNA", desc: "El misterio de la medianoche en un vestido de gala negro azabache, con una lluvia de micro-cristales que recrean un firmamento sobre la piel para eventos inolvidables.", img: "images/diseno5.jpg", vistas: ["images/diseno5.jpg", "images/diseno5-vista1.jpg", "images/diseno5-vista2.jpg", "images/diseno5-vista3.jpg", "images/diseno5-vista4.jpg", "images/diseno5-vista5.jpg"] },
+            { t: "DELICADEZA ROSA", desc: "Feminidad etérea en gasa fluida tono palo de rosa, adornada con apliques florales orgánicos creados manualmente para una delicadeza suprema y romántica.", img: "images/diseno6.jpg", vistas: ["images/diseno6.jpg", "images/diseno6-vista1.jpg", "images/diseno6-vista2.jpg"] },
+            { t: "BOSQUE SAGRADO", desc: "Presencia teatral en verde bosque, donde el volumen dramático de la falda contrasta con un talle meticulosamente bordado, evocando la realeza clásica.", img: "images/diseno7.jpg", vistas: ["images/diseno7.jpg"] },
+            { t: "PERLA CLÁSICA", desc: "Elegancia atemporal en un diseño minimalista que acaricia la figura con caída natural, acentuado por hileras de perlas finas en puntos estratégicos.", img: "images/diseno8.jpg", vistas: ["images/diseno8.jpg", "images/diseno8-vista1.jpg", "images/diseno8-vista2.jpg"] },
+            { t: "REALEZA DORADA", desc: "Una obra maestra de artesanía con bordados barrocos en auténtico hilo de oro sobre una silueta imperial, creando una pieza de lujo absoluto.", img: "images/diseno9.jpg", vistas: ["images/diseno9.jpg", "images/diseno9-vista1.jpg", "images/diseno9-vista2.jpg"] }
+        ];
+
+        const rows = [document.getElementById('row1'), document.getElementById('row2'), document.getElementById('row3')];
+        vestidos.forEach((v, i) => {
+            let rowIndex = Math.floor(i / 3);
+            rows[rowIndex].innerHTML += `
+                <div class="card" onclick="abrir(${i})">
+                    <div class="frame-wrapper"><img src="${v.img}" loading="lazy"></div>
+                    <div class="card-info"><span>${v.t}</span></div>
+                </div>
+            `;
+        });
+
+        function abrir(i) {
+            const v = vestidos[i];
+            const mainImg = document.getElementById('img-main');
+            const vCont = document.getElementById('vistas-container');
+            document.getElementById('m-tit').innerText = v.t;
+            document.getElementById('m-desc').innerText = v.desc;
+            mainImg.src = v.img; vCont.innerHTML = "";
+            v.vistas.forEach((url, idx) => {
+                const thumb = document.createElement('img'); thumb.src = url;
+                thumb.className = `v-thumb ${idx === 0 ? 'active' : ''}`;
+                thumb.onclick = () => {
+                    mainImg.src = url;
+                    document.querySelectorAll('.v-thumb').forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
+                };
+                vCont.appendChild(thumb);
+            });
+            document.getElementById('modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function cerrar() {
-            modal.classList.remove('active');
+            document.getElementById('modal').classList.remove('active');
             document.body.style.overflow = 'auto';
         }
     </script>
 </body>
-
 </html>
