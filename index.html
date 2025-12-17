@@ -318,6 +318,16 @@
             document.body.style.overflow = 'auto';
         }
     </script>
-</body>
 
+    <script>
+  // Este código elimina cualquier Service Worker activo para evitar que la página se quede "pegada" en versiones viejas
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for(let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+</body>
 </html>
