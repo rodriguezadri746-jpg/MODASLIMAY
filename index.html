@@ -18,7 +18,8 @@
             --gold-bright: #fffbe0;
             --gold-mid: #d4af37;
             --gold-dark: #aa771c;
-            --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 50%, #b38728 100%);
+            /* ORO LÍQUIDO - MÁXIMO BRILLO */
+            --gold-gradient: linear-gradient(135deg, #bf953f 0%, #fcf6ba 25%, #b38728 50%, #fcf6ba 75%, #aa771c 100%);
             --font-main: 'Montserrat', sans-serif;
             --font-luxury: 'Cinzel Decorative', serif;
             --octagon-shape: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
@@ -62,9 +63,17 @@
         /* HEADER */
         header { padding: 120px 20px 80px; text-align: center; position: relative; }
         .hero-title {
-            font-family: var(--font-luxury); font-size: clamp(3rem, 10vw, 6rem);
-            background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4)); margin-bottom: 40px; letter-spacing: 5px;
+            font-family: var(--font-luxury); 
+            font-size: clamp(3rem, 10vw, 6rem);
+            color: var(--gold-mid); /* Respaldo */
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.5));
+            margin-bottom: 40px; 
+            letter-spacing: 5px;
+            font-weight: 900;
         }
         .brand-bio {
             font-family: 'Playfair Display', serif; font-size: 1.25rem; max-width: 900px; margin: 0 auto;
@@ -89,42 +98,34 @@
             padding: 12px 25px; font-size: 0.85rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
         }
 
-        /* MODAL */
+        /* MODAL - TÍTULOS RECUPERADOS Y DORADOS */
         .modal { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0,0,0,0.98); z-index: 5000; 
             display: none; justify-content: center; overflow-y: auto; 
             backdrop-filter: blur(25px);
         }
-        .modal.active { display: flex; animation: flashOverlay 0.4s ease-out forwards; }
+        .modal.active { display: flex; }
         .modal-body { width: 100%; max-width: 900px; padding: 40px 20px; position: relative; }
-        .modal.active .main-img-container {
-            animation: modalBoom 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        @keyframes modalBoom {
-            0% { transform: scale(0.3) rotate(-5deg); opacity: 0; filter: brightness(5); }
-            70% { transform: scale(1.05) rotate(0deg); filter: brightness(1.2); }
-            100% { transform: scale(1); opacity: 1; filter: brightness(1); }
-        }
-
-        @keyframes flashOverlay {
-            0% { background: rgba(212, 175, 55, 0.3); opacity: 0; }
-            100% { background: rgba(0,0,0,0.98); opacity: 1; }
-        }
-
-        #img-main { 
-            width: 100%; display: block; 
-            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-        }
         
-        .img-reveal-anim {
-            animation: imgReveal 0.9s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        .m-header { margin-bottom: 25px; text-align: center; }
+        .m-title { 
+            font-family: var(--font-luxury); 
+            color: var(--gold-mid); 
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2.2rem; 
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.4));
         }
-
-        @keyframes imgReveal {
-            0% { opacity: 0; transform: scale(1.1); filter: blur(15px) brightness(1.8); }
-            100% { opacity: 1; transform: scale(1); filter: blur(0) brightness(1); }
+        .m-desc { 
+            font-family: 'Playfair Display', serif; 
+            color: #ddd; 
+            font-size: 1.2rem; 
+            font-style: italic; 
+            margin-bottom: 20px;
         }
 
         .main-img-container { 
@@ -132,53 +133,45 @@
             border-radius: 20px; overflow: hidden; 
             box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
             background: #050505;
-            position: relative;
         }
+        #img-main { width: 100%; display: block; }
 
-        .thumb-nav { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 25px; }
-        .v-thumb { 
-            width: 75px; height: 75px; object-fit: cover; border-radius: 50%; 
-            cursor: pointer; border: 2px solid #222; opacity: 0.5; 
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .v-thumb:hover { opacity: 0.8; transform: translateY(-5px); border-color: var(--gold-mid); }
-        .v-thumb.active { 
-            opacity: 1; border-color: var(--gold-bright); 
-            transform: scale(1.2); box-shadow: 0 0 20px var(--gold-mid);
-        }
-
-        .close-btn { position: absolute; top: 10px; right: 20px; color: var(--gold-bright); font-size: 3.5rem; cursor: pointer; z-index: 5001; text-shadow: 0 0 15px var(--gold-mid); }
-        .m-header { margin-bottom: 30px; text-align: center; }
-        .m-title { font-family: var(--font-luxury); color: var(--gold-bright) !important; font-size: 2.2rem; margin-bottom: 10px; }
-        .m-desc { font-family: 'Playfair Display', serif; color: #ddd; font-size: 1.2rem; line-height: 1.6; font-style: italic; }
-        .cta-ws { display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; padding: 22px; background: var(--gold-gradient); color: #000; font-weight: 900; text-decoration: none; border-radius: 12px; letter-spacing: 2px; }
-
-        /* FOOTER CON TÍTULO DORADO */
+        /* FOOTER - EL DORADO MÁS FUERTE PARA MÓVIL */
         footer { padding: 100px 20px 80px; text-align: center; position: relative; }
         .contact-title { 
             font-family: var(--font-luxury); 
-            font-size: clamp(1.5rem, 6vw, 2.5rem);
-            background: var(--gold-gradient); 
-            -webkit-background-clip: text; 
-            background-clip: text; 
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+            font-size: clamp(1.8rem, 6vw, 2.8rem);
+            color: #fcf6ba !important; /* Respaldo Oro Brillante */
+            background: var(--gold-gradient) !important; 
+            -webkit-background-clip: text !important; 
+            background-clip: text !important; 
+            -webkit-text-fill-color: transparent !important;
+            /* Glow externo para que resalte sí o sí */
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.8)) !important;
             letter-spacing: 3px; 
             margin-bottom: 50px; 
             font-weight: 900;
-            line-height: 1.4;
+            line-height: 1.3;
+            text-transform: uppercase;
         }
-        .contact-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 60px; }
-        .contact-item { text-decoration: none; color: white; display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.03); padding: 18px 35px; border: 1px solid #333; transition: 0.4s; }
+        
+        .contact-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 60px; }
+        .contact-item { text-decoration: none; color: white; display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.03); padding: 18px 30px; border: 1px solid #333; transition: 0.4s; }
         .contact-item:hover { border-color: var(--gold-bright); background: rgba(181, 140, 46, 0.15); transform: translateY(-5px); }
         .copy { font-size: 0.7rem; color: #666; letter-spacing: 4px; text-transform: uppercase; }
 
+        .thumb-nav { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+        .v-thumb { width: 65px; height: 65px; object-fit: cover; border-radius: 50%; cursor: pointer; border: 2px solid #222; transition: 0.3s; }
+        .v-thumb.active { border-color: var(--gold-bright); transform: scale(1.15); box-shadow: 0 0 15px var(--gold-mid); }
+        
+        .close-btn { position: absolute; top: 10px; right: 20px; color: var(--gold-bright); font-size: 3.5rem; cursor: pointer; text-shadow: 0 0 20px var(--gold-mid); }
+        .cta-ws { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 22px; background: var(--gold-gradient); color: #000; font-weight: 900; text-decoration: none; border-radius: 12px; margin-top: 25px; letter-spacing: 1px; }
+
         @media (max-width: 768px) {
+            .hero-title { font-size: 2.8rem; }
+            .contact-title { font-size: 1.7rem; }
             .h-row { gap: 40px; }
-            .card { width: 280px; }
-            .hero-title { font-size: 3rem; -webkit-text-fill-color: transparent; }
-            /* Asegurar que el título de contacto sea visible y dorado en móvil */
-            .contact-title { -webkit-text-fill-color: transparent; background: var(--gold-gradient); }
+            .card { width: 290px; }
         }
     </style>
 </head>
@@ -222,7 +215,7 @@
                 <p id="m-desc" class="m-desc"></p>
             </div>
             <div class="main-img-container">
-                <img id="img-main" src="" class="">
+                <img id="img-main" src="">
             </div>
             <div id="vistas-container" class="thumb-nav"></div>
             <a href="https://wa.me/51957555444" class="cta-ws"><i class="fab fa-whatsapp"></i> SOLICITAR INFORMACIÓN</a>
@@ -230,10 +223,9 @@
     </div>
 
     <script>
-        // LÓGICA DE ESTRELLAS
+        // LÓGICA DE ESTRELLAS (SIN CAMBIOS)
         const vContainer = document.getElementById('vShapeStars');
         const spinContainer = document.getElementById('spinningStars');
-
         function createStar(container, x, y, sizeBase, className) {
             const star = document.createElement('div');
             star.className = className;
@@ -242,28 +234,18 @@
             star.style.left = `${x}%`; star.style.top = `${y}%`;
             container.appendChild(star);
         }
-
         const isMobile = window.innerWidth <= 768;
         const yEnd = isMobile ? 45 : 80;
-        const numVStars = 70;
-        for (let i = 0; i < numVStars; i++) {
+        for (let i = 0; i < 70; i++) {
             let x, y;
-            const progress = i / (numVStars / 2);
-            if (i < numVStars / 2) {
-                 x = 25 + (progress * 25);
-                 y = 15 + (progress * (yEnd - 15));
-            } else {
-                 const progressRight = (i - numVStars/2) / (numVStars/2);
-                 x = 75 - (progressRight * 25);
-                 y = 15 + (progressRight * (yEnd - 15));
-            }
+            const progress = i / 35;
+            if (i < 35) { x = 25 + (progress * 25); y = 15 + (progress * (yEnd - 15)); }
+            else { const pR = (i - 35) / 35; x = 75 - (pR * 25); y = 15 + (pR * (yEnd - 15)); }
             createStar(vContainer, x, y, 4, 'bright-star v-star');
         }
+        for (let i = 0; i < 80; i++) { createStar(spinContainer, Math.random() * 100, Math.random() * 100, 2, 'bright-star'); }
 
-        for (let i = 0; i < 100; i++) {
-             createStar(spinContainer, Math.random() * 100, Math.random() * 100, 2, 'bright-star');
-        }
-
+        // VESTIDOS (DATOS ORIGINALES)
         const vestidos = [
             { t: "BRUMA DE MENTA", desc: "Seda tono menta con caída asimétrica.", img: "images/diseno1.jpg", vistas: ["images/diseno1.jpg", "images/diseno1-vista2.jpg"] },
             { t: "SUEÑO MARFIL", desc: "Capas de tul de seda marfil y corset joya.", img: "images/diseno2.jpg", vistas: ["images/diseno2.jpg", "images/diseno2_vista_completa.jpg"] },
@@ -278,52 +260,31 @@
 
         const rows = [document.getElementById('row1'), document.getElementById('row2'), document.getElementById('row3')];
         vestidos.forEach((v, i) => {
-            let rowIndex = Math.floor(i / 3);
-            rows[rowIndex].innerHTML += `
-                <div class="card" onclick="abrir(${i})">
-                    <div class="frame-wrapper"><img src="${v.img}" loading="lazy"></div>
-                    <div class="card-info"><span>${v.t}</span></div>
-                </div>`;
+            let rIdx = Math.floor(i / 3);
+            rows[rIdx].innerHTML += `<div class="card" onclick="abrir(${i})"><div class="frame-wrapper"><img src="${v.img}" loading="lazy"></div><div class="card-info"><span>${v.t}</span></div></div>`;
         });
 
         function abrir(i) {
-            const v = vestidos[i]; 
-            const mainImg = document.getElementById('img-main'); 
-            const vCont = document.getElementById('vistas-container');
-            document.getElementById('m-tit').innerText = v.t; 
+            const v = vestidos[i];
+            document.getElementById('m-tit').innerText = v.t;
             document.getElementById('m-desc').innerText = v.desc;
-            mainImg.src = v.img; 
-            mainImg.classList.remove('img-reveal-anim');
+            const mImg = document.getElementById('img-main');
+            mImg.src = v.img;
+            const vCont = document.getElementById('vistas-container');
             vCont.innerHTML = "";
             v.vistas.forEach((url, idx) => {
                 const thumb = document.createElement('img');
-                thumb.src = url;
-                thumb.className = `v-thumb ${idx === 0 ? 'active' : ''}`;
-                thumb.onclick = () => {
-                    if(mainImg.src === url) return; 
-                    mainImg.classList.remove('img-reveal-anim');
-                    void mainImg.offsetWidth; 
-                    mainImg.src = url;
-                    mainImg.classList.add('img-reveal-anim');
-                    document.querySelectorAll('.v-thumb').forEach(t => t.classList.remove('active'));
-                    thumb.classList.add('active');
-                };
+                thumb.src = url; thumb.className = `v-thumb ${idx===0?'active':''}`;
+                thumb.onclick = () => { mImg.src = url; document.querySelectorAll('.v-thumb').forEach(t=>t.classList.remove('active')); thumb.classList.add('active'); };
                 vCont.appendChild(thumb);
             });
-            document.getElementById('modal').classList.add('active'); 
+            document.getElementById('modal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+        function cerrar() { document.getElementById('modal').classList.remove('active'); document.body.style.overflow = 'auto'; }
 
-        function cerrar() { 
-            document.getElementById('modal').classList.remove('active'); 
-            document.body.style.overflow = 'auto'; 
-        }
-
-        // REGISTRO DE SERVICE WORKER
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js');
-            });
+            window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js'); });
         }
     </script>
 </body>
