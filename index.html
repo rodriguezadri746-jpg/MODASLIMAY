@@ -30,59 +30,37 @@
             min-height: 100vh;
         }
 
+        /* FONDO DE ESTRELLAS */
         .stars-container {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -1; background: #000; overflow: hidden;
-            perspective: 1000px;
         }
-
         .star-layer-bg {
             position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
             background-image: radial-gradient(2px 2px at 20px 30px, #eee, transparent), radial-gradient(2px 2px at 150px 150px, var(--gold-mid), transparent);
-            background-size: 300px 300px; opacity: 0.3;
+            background-size: 300px 300px; opacity: 0.2;
         }
-
-        .v-shape-container {
-            position: absolute; width: 100%; height: 100%; top: 0; left: 0;
-            z-index: 2;
-        }
-
-        .spinning-around-v {
-            position: absolute; width: 100%; height: 100%; top: 0; left: 0;
-            animation: spinAroundCenter 180s linear infinite;
-        }
-
+        .v-shape-container { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 2; }
+        .spinning-around-v { position: absolute; width: 100%; height: 100%; top: 0; left: 0; animation: spinAroundCenter 180s linear infinite; }
         .bright-star {
             position: absolute; background: white; border-radius: 50%;
-            filter: blur(1px);
-            box-shadow: 0 0 15px 4px white, 0 0 30px 8px var(--gold-mid);
+            filter: blur(1px); box-shadow: 0 0 10px 2px white, 0 0 20px 4px var(--gold-mid);
             animation: twinkle 4s ease-in-out infinite alternate;
         }
-
         .v-star {
             background: var(--gold-bright) !important;
-            box-shadow: 0 0 20px 5px var(--gold-mid), 0 0 50px 15px var(--gold-dark) !important;
+            box-shadow: 0 0 10px 2px var(--gold-mid), 0 0 25px 5px var(--gold-dark) !important;
+            opacity: 0.8;
         }
+        @keyframes spinAroundCenter { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes twinkle { 0% { opacity: 0.4; transform: scale(0.8); } 100% { opacity: 0.9; transform: scale(1.2); } }
 
-        @keyframes spinAroundCenter {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        @keyframes twinkle {
-            0% { opacity: 0.5; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1.3); }
-        }
-
+        /* HEADER */
         header { padding: 120px 20px 80px; text-align: center; position: relative; }
         .hero-title {
-            font-family: var(--font-luxury);
-            font-size: clamp(3rem, 10vw, 6rem);
-            background: var(--gold-gradient);
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            /* Sombra de seguridad para PC */
-            text-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
-            margin-bottom: 40px; letter-spacing: 5px;
+            font-family: var(--font-luxury); font-size: clamp(3rem, 10vw, 6rem);
+            background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4)); margin-bottom: 40px; letter-spacing: 5px;
         }
         .brand-bio {
             font-family: 'Playfair Display', serif; font-size: 1.25rem; max-width: 900px; margin: 0 auto;
@@ -90,89 +68,104 @@
         }
         .brand-bio strong { color: var(--gold-bright); font-family: var(--font-luxury); font-style: normal; }
 
+        /* GALERÍA */
         .gallery-section { padding: 60px 0 120px; position: relative; }
         .honeycomb-gallery { display: flex; flex-direction: column; align-items: center; gap: 100px; }
         .h-row { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
-
-        .card {
-            width: 350px;
-            display: flex; flex-direction: column; align-items: center;
-            cursor: pointer; transition: 0.5s ease;
-            position: relative;
-        }
+        .card { width: 350px; display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: 0.5s ease; position: relative; }
         .card:hover { transform: scale(1.03) translateY(-10px); z-index: 10; }
-
         .frame-wrapper {
-            width: 100%; aspect-ratio: 1/1;
-            clip-path: var(--octagon-shape);
-            background: var(--gold-gradient); padding: 5px;
-            filter: drop-shadow(0 25px 40px rgba(0,0,0,0.8));
+            width: 100%; aspect-ratio: 1/1; clip-path: var(--octagon-shape);
+            background: var(--gold-gradient); padding: 5px; filter: drop-shadow(0 25px 40px rgba(0,0,0,0.8));
         }
-
-        .frame-wrapper img {
-            width: 100%; height: 100%; object-fit: cover;
-            clip-path: var(--octagon-shape); background: #0a0a0a;
-        }
-
+        .frame-wrapper img { width: 100%; height: 100%; object-fit: cover; clip-path: var(--octagon-shape); background: #0a0a0a; }
         .card-info { margin-top: 30px; text-align: center; width: 100%; }
         .card-info span {
             background: rgba(0,0,0,0.9); color: var(--gold-bright); border: 1px solid var(--gold-dark);
-            padding: 12px 25px; font-size: 0.85rem; font-weight: 700;
-            letter-spacing: 3px; text-transform: uppercase;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.6);
+            padding: 12px 25px; font-size: 0.85rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
         }
 
-        footer { padding: 100px 20px 80px; text-align: center; background: linear-gradient(to top, #000 0%, transparent 100%); position: relative; }
-        
-        .contact-title { 
-            font-family: var(--font-luxury); 
-            background: var(--gold-gradient);
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            font-size: 1.8rem; 
-            letter-spacing: 5px; margin-bottom: 50px;
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6));
-            font-weight: 900;
+        /* MODAL E IMPACTO "BOOM" */
+        .modal { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.98); z-index: 5000; 
+            display: none; justify-content: center; overflow-y: auto; 
+            backdrop-filter: blur(25px);
+        }
+        .modal.active { display: flex; animation: flashOverlay 0.4s ease-out forwards; }
+
+        .modal-body { width: 100%; max-width: 900px; padding: 40px 20px; position: relative; }
+
+        .modal.active .main-img-container {
+            animation: modalBoom 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes modalBoom {
+            0% { transform: scale(0.3) rotate(-5deg); opacity: 0; filter: brightness(5); }
+            70% { transform: scale(1.05) rotate(0deg); filter: brightness(1.2); }
+            100% { transform: scale(1); opacity: 1; filter: brightness(1); }
+        }
+
+        @keyframes flashOverlay {
+            0% { background: rgba(212, 175, 55, 0.3); opacity: 0; }
+            100% { background: rgba(0,0,0,0.98); opacity: 1; }
+        }
+
+        /* --- NUEVA TRANSICIÓN DE IMAGEN (REVELADO DE SEDA) --- */
+        #img-main { 
+            width: 100%; display: block; 
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
         
+        /* Clase que se activa al cambiar de imagen */
+        .img-reveal-anim {
+            animation: imgReveal 0.9s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        @keyframes imgReveal {
+            0% { opacity: 0; transform: scale(1.1); filter: blur(15px) brightness(1.8); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0) brightness(1); }
+        }
+
+        .main-img-container { 
+            width: 100%; margin-bottom: 30px; border: 2px solid var(--gold-mid); 
+            border-radius: 20px; overflow: hidden; 
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+            background: #050505;
+            position: relative;
+        }
+
+        /* MINIATURAS MEJORADAS */
+        .thumb-nav { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 25px; }
+        .v-thumb { 
+            width: 75px; height: 75px; object-fit: cover; border-radius: 50%; 
+            cursor: pointer; border: 2px solid #222; opacity: 0.5; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .v-thumb:hover { opacity: 0.8; transform: translateY(-5px); border-color: var(--gold-mid); }
+        .v-thumb.active { 
+            opacity: 1; border-color: var(--gold-bright); 
+            transform: scale(1.2); box-shadow: 0 0 20px var(--gold-mid);
+        }
+
+        .close-btn { position: absolute; top: 10px; right: 20px; color: var(--gold-bright); font-size: 3.5rem; cursor: pointer; z-index: 5001; text-shadow: 0 0 15px var(--gold-mid); }
+        .m-header { margin-bottom: 30px; text-align: center; }
+        .m-title { font-family: var(--font-luxury); color: var(--gold-bright) !important; font-size: 2.2rem; margin-bottom: 10px; }
+        .m-desc { font-family: 'Playfair Display', serif; color: #ddd; font-size: 1.2rem; line-height: 1.6; font-style: italic; }
+        .cta-ws { display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; padding: 22px; background: var(--gold-gradient); color: #000; font-weight: 900; text-decoration: none; border-radius: 12px; letter-spacing: 2px; }
+
+        footer { padding: 100px 20px 80px; text-align: center; position: relative; }
+        .contact-title { font-family: var(--font-luxury); background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.8rem; letter-spacing: 5px; margin-bottom: 50px; font-weight: 900; }
         .contact-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 60px; }
         .contact-item { text-decoration: none; color: white; display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.03); padding: 18px 35px; border: 1px solid #333; transition: 0.4s; }
         .contact-item:hover { border-color: var(--gold-bright); background: rgba(181, 140, 46, 0.15); transform: translateY(-5px); }
         .copy { font-size: 0.7rem; color: #666; letter-spacing: 4px; text-transform: uppercase; }
 
-        /* --- CONTRASTE EXTREMO PARA MÓVIL --- */
         @media (max-width: 768px) {
             .h-row { gap: 40px; }
             .card { width: 280px; }
-            
-            .hero-title, .contact-title { 
-                /* El secreto: Sombra negra sólida para separar el oro del fondo brillante */
-                text-shadow: 0 0 15px rgba(0,0,0,1), 0 0 5px rgba(0,0,0,1);
-                filter: brightness(1.4) drop-shadow(0 0 10px rgba(212, 175, 55, 0.6)); 
-                -webkit-text-stroke: 0.2px rgba(255,255,255,0.1); /* Un hilo de luz extra */
-            }
-            .hero-title { font-size: 3.2rem; }
-            .contact-title { font-size: 1.3rem; line-height: 1.4; padding: 0 10px; }
+            .hero-title { font-size: 3rem; -webkit-text-fill-color: initial; color: #fcf6ba; background: none; text-shadow: 0 0 10px rgba(212, 175, 55, 0.8); }
         }
-
-        .modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.98); z-index: 5000;
-            display: none; justify-content: center; overflow-y: auto;
-            backdrop-filter: blur(25px);
-        }
-        .modal.active { display: flex; animation: fadeIn 0.4s ease; }
-        .modal-body { width: 100%; max-width: 900px; padding: 60px 30px; position: relative; }
-        .close-btn { position: absolute; top: 20px; right: 20px; color: var(--gold-bright); font-size: 3rem; cursor: pointer; }
-        .m-header { margin-bottom: 40px; text-align: center; }
-        .m-title { font-family: var(--font-luxury); color: var(--gold-bright) !important; font-size: 2.5rem; margin-bottom: 15px; text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3); }
-        .m-desc { font-family: 'Playfair Display', serif; color: #ddd; font-size: 1.3rem; line-height: 1.7; font-style: italic; }
-        .main-img-container { width: 100%; margin-bottom: 30px; border: 3px solid var(--gold-mid); border-radius: 25px; overflow: hidden; box-shadow: 0 0 30px rgba(252, 246, 186, 0.5), inset 0 0 15px rgba(212, 175, 55, 0.3); }
-        #img-main { width: 100%; display: block; }
-        .thumb-nav { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-        .v-thumb { width: 80px; height: 80px; object-fit: cover; border-radius: 50%; cursor: pointer; border: 2px solid #333; opacity: 0.6; transition: 0.3s; }
-        .v-thumb.active { opacity: 1; border-color: var(--gold-bright); transform: scale(1.1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); }
-        .cta-ws { display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; padding: 25px; background: var(--gold-gradient); color: #000; font-weight: 900; text-decoration: none; margin-top: 40px; border-radius: 10px; letter-spacing: 3px; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -201,7 +194,7 @@
     <footer>
         <h1 class="contact-title">SOLICITA TU CITA Y ASESORÍA PERSONALIZADA</h1>
         <div class="contact-grid">
-            <a href="https://wa.me/51957555444" class="contact-item"><i class="fab fa-whatsapp"></i> <span>+51 957 555 444</span></a>
+            <a href="https://wa.me/51957555444" class="contact-item"><i class="fab fa-whatsapp"></i> <span>WhatsApp</span></a>
             <a href="#" class="contact-item"><i class="fas fa-map-marker-alt"></i> <span>Celendín, Cajamarca</span></a>
         </div>
         <p class="copy">© 2025 MODAS LIMAY - Alta Costura a Medida</p>
@@ -214,13 +207,16 @@
                 <h2 id="m-tit" class="m-title"></h2>
                 <p id="m-desc" class="m-desc"></p>
             </div>
-            <div class="main-img-container"><img id="img-main" src=""></div>
+            <div class="main-img-container">
+                <img id="img-main" src="" class="">
+            </div>
             <div id="vistas-container" class="thumb-nav"></div>
             <a href="https://wa.me/51957555444" class="cta-ws"><i class="fab fa-whatsapp"></i> SOLICITAR INFORMACIÓN</a>
         </div>
     </div>
 
     <script>
+        // LÓGICA DE ESTRELLAS
         const vContainer = document.getElementById('vShapeStars');
         const spinContainer = document.getElementById('spinningStars');
 
@@ -230,13 +226,11 @@
             const size = Math.random() * sizeBase + 3;
             star.style.width = `${size}px`; star.style.height = `${size}px`;
             star.style.left = `${x}%`; star.style.top = `${y}%`;
-            star.style.animationDelay = `${Math.random() * 4}s`;
             container.appendChild(star);
         }
 
-        // V Adaptable que no tapa el footer en móvil
         const isMobile = window.innerWidth <= 768;
-        const yEnd = isMobile ? 45 : 80; // Termina mucho más arriba en móvil
+        const yEnd = isMobile ? 45 : 80;
         const numVStars = 70;
         for (let i = 0; i < numVStars; i++) {
             let x, y;
@@ -249,26 +243,27 @@
                  x = 75 - (progressRight * 25);
                  y = 15 + (progressRight * (yEnd - 15));
             }
-            x += (Math.random() - 0.5) * 4; y += (Math.random() - 0.5) * 4;
-            createStar(vContainer, x, y, 5, 'bright-star v-star');
+            createStar(vContainer, x, y, 4, 'bright-star v-star');
         }
 
-        for (let i = 0; i < 120; i++) {
-             createStar(spinContainer, Math.random() * 100, Math.random() * 100, 3, 'bright-star');
+        for (let i = 0; i < 100; i++) {
+             createStar(spinContainer, Math.random() * 100, Math.random() * 100, 2, 'bright-star');
         }
 
+        // DATOS DE VESTIDOS
         const vestidos = [
-            { t: "BRUMA DE MENTA", desc: "Delicadeza y estructura en seda tono menta.", img: "images/diseno1.jpg", vistas: ["images/diseno1.jpg"] },
-            { t: "SUEÑO MARFIL", desc: "Majestuoso volumen de capas de tul de seda.", img: "images/diseno2.jpg", vistas: ["images/diseno2.jpg"] },
-            { t: "ESMERALDA REAL", desc: "Sofisticación en verde joya profundo.", img: "images/diseno3.jpg", vistas: ["images/diseno3.jpg"] },
-            { t: "VANGUARDIA PLATA", desc: "Arquitectura textil con texturas tridimensionales.", img: "images/diseno4.jpg", vistas: ["images/diseno4.jpg"] },
-            { t: "NOCHE ETERNA", desc: "Gala negro azabache con micro-cristales.", img: "images/diseno5.jpg", vistas: ["images/diseno5.jpg"] },
-            { t: "DELICADEZA ROSA", desc: "Feminidad etérea en gasa fluida palo de rosa.", img: "images/diseno6.jpg", vistas: ["images/diseno6.jpg"] },
-            { t: "BOSQUE SAGRADO", desc: "Volumen dramático evocando la realeza clásica.", img: "images/diseno7.jpg", vistas: ["images/diseno7.jpg"] },
-            { t: "PERLA CLÁSICA", desc: "Minimalismo acentuado por hileras de perlas.", img: "images/diseno8.jpg", vistas: ["images/diseno8.jpg"] },
-            { t: "REALEZA DORADA", desc: "Bordados barrocos en auténtico hilo de oro.", img: "images/diseno9.jpg", vistas: ["images/diseno9.jpg"] }
+            { t: "BRUMA DE MENTA", desc: "Seda tono menta con caída asimétrica.", img: "images/diseno1.jpg", vistas: ["images/diseno1.jpg", "images/diseno1-vista2.jpg"] },
+            { t: "SUEÑO MARFIL", desc: "Capas de tul de seda marfil y corset joya.", img: "images/diseno2.jpg", vistas: ["images/diseno2.jpg", "images/diseno2_vista_completa.jpg"] },
+            { t: "ESMERALDA REAL", desc: "Verde joya con encaje francés y pedrería.", img: "images/diseno3.jpg", vistas: ["images/diseno3.jpg", "images/diseno3-vista1.jpg", "images/diseno3-vista2.jpg", "images/diseno3-vista3.jpg", "images/diseno3-vista4.jpg", "images/diseno3-vista5.jpg"] },
+            { t: "VANGUARDIA PLATA", desc: "Arquitectura textil con texturas 3D.", img: "images/diseno4.jpg", vistas: ["images/diseno4.jpg", "images/diseno4-vista1.jpg", "images/diseno4-vista2.jpg", "images/diseno4-vista3.jpg"] },
+            { t: "NOCHE ETERNA", desc: "Gala negro azabache con micro-cristales.", img: "images/diseno5.jpg", vistas: ["images/diseno5.jpg", "images/diseno5-vista1.jpg", "images/diseno5-vista2.jpg", "images/diseno5-vista3.jpg", "images/diseno5-vista4.jpg", "images/diseno5-vista5.jpg"] },
+            { t: "DELICADEZA ROSA", desc: "Feminidad en gasa fluida palo de rosa.", img: "images/diseno6.jpg", vistas: ["images/diseno6.jpg", "images/diseno6-vista1.jpg", "images/diseno6-vista2.jpg"] },
+            { t: "BOSQUE SAGRADO", desc: "Presencia teatral en verde bosque profundo.", img: "images/diseno7.jpg", vistas: ["images/diseno7.jpg"] },
+            { t: "PERLA CLÁSICA", desc: "Diseño minimalista acentuado por perlas.", img: "images/diseno8.jpg", vistas: ["images/diseno8.jpg", "images/diseno8-vista1.jpg", "images/diseno8-vista2.jpg"] },
+            { t: "REALEZA DORADA", desc: "Bordados barrocos en auténtico hilo de oro.", img: "images/diseno9.jpg", vistas: ["images/diseno9.jpg", "images/diseno9-vista1.jpg", "images/diseno9-vista2.jpg"] }
         ];
 
+        // RENDERIZADO DE CARTAS
         const rows = [document.getElementById('row1'), document.getElementById('row2'), document.getElementById('row3')];
         vestidos.forEach((v, i) => {
             let rowIndex = Math.floor(i / 3);
@@ -279,27 +274,56 @@
                 </div>`;
         });
 
+        // FUNCIONES DEL MODAL
         function abrir(i) {
-            const v = vestidos[i]; const mainImg = document.getElementById('img-main'); const vCont = document.getElementById('vistas-container');
-            document.getElementById('m-tit').innerText = v.t; document.getElementById('m-desc').innerText = v.desc;
-            mainImg.src = v.img; vCont.innerHTML = "";
+            const v = vestidos[i]; 
+            const mainImg = document.getElementById('img-main'); 
+            const vCont = document.getElementById('vistas-container');
+            
+            document.getElementById('m-tit').innerText = v.t; 
+            document.getElementById('m-desc').innerText = v.desc;
+            
+            mainImg.src = v.img; 
+            mainImg.classList.remove('img-reveal-anim');
+            
+            vCont.innerHTML = "";
             v.vistas.forEach((url, idx) => {
-                const thumb = document.createElement('img'); thumb.src = url; thumb.className = `v-thumb ${idx === 0 ? 'active' : ''}`;
-                thumb.onclick = () => { mainImg.src = url; document.querySelectorAll('.v-thumb').forEach(t => t.classList.remove('active')); thumb.classList.add('active'); };
+                const thumb = document.createElement('img');
+                thumb.src = url;
+                thumb.className = `v-thumb ${idx === 0 ? 'active' : ''}`;
+                
+                thumb.onclick = () => {
+                    if(mainImg.src === url) return; 
+                    
+                    mainImg.classList.remove('img-reveal-anim');
+                    void mainImg.offsetWidth; 
+                    mainImg.src = url;
+                    mainImg.classList.add('img-reveal-anim');
+                    
+                    document.querySelectorAll('.v-thumb').forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
+                };
                 vCont.appendChild(thumb);
             });
-            document.getElementById('modal').classList.add('active'); document.body.style.overflow = 'hidden';
+            
+            document.getElementById('modal').classList.add('active'); 
+            document.body.style.overflow = 'hidden';
         }
-        function cerrar() { document.getElementById('modal').classList.remove('active'); document.body.style.overflow = 'auto'; }
+
+        function cerrar() { 
+            document.getElementById('modal').classList.remove('active'); 
+            document.body.style.overflow = 'auto'; 
+        }
     </script>
 
     <script>
-      // SERVICE WORKER INTACTO
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-          for(let registration of registrations) {
-            registration.unregister();
-          }
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').then(function(registration) {
+            console.log('ServiceWorker registrado con éxito');
+          }, function(err) {
+            console.log('Error al registrar el ServiceWorker: ', err);
+          });
         });
       }
     </script>
