@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>MODAS LIMAY | Vilma Limay Vera</title>
     
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#020202">
+    <link rel="apple-touch-icon" href="images/icon-192.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
@@ -85,7 +89,7 @@
             padding: 12px 25px; font-size: 0.85rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
         }
 
-        /* MODAL E IMPACTO "BOOM" */
+        /* MODAL */
         .modal { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0,0,0,0.98); z-index: 5000; 
@@ -93,9 +97,7 @@
             backdrop-filter: blur(25px);
         }
         .modal.active { display: flex; animation: flashOverlay 0.4s ease-out forwards; }
-
         .modal-body { width: 100%; max-width: 900px; padding: 40px 20px; position: relative; }
-
         .modal.active .main-img-container {
             animation: modalBoom 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
@@ -111,13 +113,11 @@
             100% { background: rgba(0,0,0,0.98); opacity: 1; }
         }
 
-        /* --- NUEVA TRANSICIÓN DE IMAGEN (REVELADO DE SEDA) --- */
         #img-main { 
             width: 100%; display: block; 
             transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
         
-        /* Clase que se activa al cambiar de imagen */
         .img-reveal-anim {
             animation: imgReveal 0.9s cubic-bezier(0.23, 1, 0.32, 1) forwards;
         }
@@ -135,7 +135,6 @@
             position: relative;
         }
 
-        /* MINIATURAS MEJORADAS */
         .thumb-nav { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 25px; }
         .v-thumb { 
             width: 75px; height: 75px; object-fit: cover; border-radius: 50%; 
@@ -154,8 +153,21 @@
         .m-desc { font-family: 'Playfair Display', serif; color: #ddd; font-size: 1.2rem; line-height: 1.6; font-style: italic; }
         .cta-ws { display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; padding: 22px; background: var(--gold-gradient); color: #000; font-weight: 900; text-decoration: none; border-radius: 12px; letter-spacing: 2px; }
 
+        /* FOOTER CON TÍTULO DORADO */
         footer { padding: 100px 20px 80px; text-align: center; position: relative; }
-        .contact-title { font-family: var(--font-luxury); background: var(--gold-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.8rem; letter-spacing: 5px; margin-bottom: 50px; font-weight: 900; }
+        .contact-title { 
+            font-family: var(--font-luxury); 
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
+            background: var(--gold-gradient); 
+            -webkit-background-clip: text; 
+            background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+            letter-spacing: 3px; 
+            margin-bottom: 50px; 
+            font-weight: 900;
+            line-height: 1.4;
+        }
         .contact-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 60px; }
         .contact-item { text-decoration: none; color: white; display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.03); padding: 18px 35px; border: 1px solid #333; transition: 0.4s; }
         .contact-item:hover { border-color: var(--gold-bright); background: rgba(181, 140, 46, 0.15); transform: translateY(-5px); }
@@ -164,7 +176,9 @@
         @media (max-width: 768px) {
             .h-row { gap: 40px; }
             .card { width: 280px; }
-            .hero-title { font-size: 3rem; -webkit-text-fill-color: initial; color: #fcf6ba; background: none; text-shadow: 0 0 10px rgba(212, 175, 55, 0.8); }
+            .hero-title { font-size: 3rem; -webkit-text-fill-color: transparent; }
+            /* Asegurar que el título de contacto sea visible y dorado en móvil */
+            .contact-title { -webkit-text-fill-color: transparent; background: var(--gold-gradient); }
         }
     </style>
 </head>
@@ -192,7 +206,7 @@
     </div>
 
     <footer>
-        <h1 class="contact-title">SOLICITA TU CITA Y ASESORÍA PERSONALIZADA</h1>
+        <h2 class="contact-title">SOLICITA TU CITA Y ASESORÍA PERSONALIZADA</h2>
         <div class="contact-grid">
             <a href="https://wa.me/51957555444" class="contact-item"><i class="fab fa-whatsapp"></i> <span>WhatsApp</span></a>
             <a href="#" class="contact-item"><i class="fas fa-map-marker-alt"></i> <span>Celendín, Cajamarca</span></a>
@@ -250,7 +264,6 @@
              createStar(spinContainer, Math.random() * 100, Math.random() * 100, 2, 'bright-star');
         }
 
-        // DATOS DE VESTIDOS
         const vestidos = [
             { t: "BRUMA DE MENTA", desc: "Seda tono menta con caída asimétrica.", img: "images/diseno1.jpg", vistas: ["images/diseno1.jpg", "images/diseno1-vista2.jpg"] },
             { t: "SUEÑO MARFIL", desc: "Capas de tul de seda marfil y corset joya.", img: "images/diseno2.jpg", vistas: ["images/diseno2.jpg", "images/diseno2_vista_completa.jpg"] },
@@ -263,7 +276,6 @@
             { t: "REALEZA DORADA", desc: "Bordados barrocos en auténtico hilo de oro.", img: "images/diseno9.jpg", vistas: ["images/diseno9.jpg", "images/diseno9-vista1.jpg", "images/diseno9-vista2.jpg"] }
         ];
 
-        // RENDERIZADO DE CARTAS
         const rows = [document.getElementById('row1'), document.getElementById('row2'), document.getElementById('row3')];
         vestidos.forEach((v, i) => {
             let rowIndex = Math.floor(i / 3);
@@ -274,38 +286,30 @@
                 </div>`;
         });
 
-        // FUNCIONES DEL MODAL
         function abrir(i) {
             const v = vestidos[i]; 
             const mainImg = document.getElementById('img-main'); 
             const vCont = document.getElementById('vistas-container');
-            
             document.getElementById('m-tit').innerText = v.t; 
             document.getElementById('m-desc').innerText = v.desc;
-            
             mainImg.src = v.img; 
             mainImg.classList.remove('img-reveal-anim');
-            
             vCont.innerHTML = "";
             v.vistas.forEach((url, idx) => {
                 const thumb = document.createElement('img');
                 thumb.src = url;
                 thumb.className = `v-thumb ${idx === 0 ? 'active' : ''}`;
-                
                 thumb.onclick = () => {
                     if(mainImg.src === url) return; 
-                    
                     mainImg.classList.remove('img-reveal-anim');
                     void mainImg.offsetWidth; 
                     mainImg.src = url;
                     mainImg.classList.add('img-reveal-anim');
-                    
                     document.querySelectorAll('.v-thumb').forEach(t => t.classList.remove('active'));
                     thumb.classList.add('active');
                 };
                 vCont.appendChild(thumb);
             });
-            
             document.getElementById('modal').classList.add('active'); 
             document.body.style.overflow = 'hidden';
         }
@@ -314,18 +318,13 @@
             document.getElementById('modal').classList.remove('active'); 
             document.body.style.overflow = 'auto'; 
         }
-    </script>
 
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('/sw.js').then(function(registration) {
-            console.log('ServiceWorker registrado con éxito');
-          }, function(err) {
-            console.log('Error al registrar el ServiceWorker: ', err);
-          });
-        });
-      }
+        // REGISTRO DE SERVICE WORKER
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js');
+            });
+        }
     </script>
 </body>
 </html>
